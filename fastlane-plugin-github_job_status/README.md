@@ -14,13 +14,26 @@ fastlane add_plugin github_job_status
 
 Post the status of your test jobs to your pull requests
 
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+It should be used in the following way:
+
+```RUBY
+github_job_status(
+  token: 'github_OAuth_token',
+  owner: 'justinsinger',
+  repo: 'fastlane_plugins',
+  sha: 'commit_sha',
+  job_name: 'good_job',
+  build_url: 'skullcrushers.gov',
+  state: 'pending'
+)
+```
+
+`state` must be pending, success, error, or failure
+`token` can be obtained in GitHub for any owner by going to settings/Personal access tokens. Generate a new token and be sure to enable `repo:status`.
 
 ## Example
 
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
-
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
 
 ## Run tests for this plugin
 
