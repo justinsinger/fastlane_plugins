@@ -2,7 +2,6 @@ module Fastlane
   module Actions
     class GithubJobStatusAction < Action
       require 'rest-client'
-      require 'pry-byebug'
 
       def self.run(params)
         api = "https://api.github.com/repos"
@@ -26,10 +25,10 @@ module Fastlane
 
         begin
           post(url, payload.to_json, headers)
-          return true
+          true
         rescue RestClient::ExceptionWithResponse => e
           UI.error "Status failed to post to GitHub. Recieved the following response from the server: #{e.response}"
-          return false
+          false
         end
       end
 
