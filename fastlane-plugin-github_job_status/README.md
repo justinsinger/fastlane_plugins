@@ -15,7 +15,7 @@ fastlane add_plugin github_job_status
 Post the status of your test jobs to your pull requests. This uses GihHub's [status API](https://developer.github.com/v3/repos/statuses/). Statuses posted to pull requests look this:
 ![screen shot 2016-12-16 at 2 25 20 pm](https://cloud.githubusercontent.com/assets/8180094/21275606/98432cc4-c39b-11e6-984f-25228455efd7.png)
 
-It should be used in the following way:
+This plugin can be used in the following way:
 
 ```RUBY
 github_job_status(
@@ -29,8 +29,9 @@ github_job_status(
 )
 ```
 
-`state` must be pending, success, error, or failure
-`token` can be obtained in GitHub for any owner by going to settings/Personal access tokens. Generate a new token and be sure to enable `repo:status`.
+ * `state` must be pending, success, error, or failure
+ * `token` can be obtained in GitHub for an owner (To do this, go to settings/Personal access tokens. Generate a new token and be sure to enable `repo:status`.)
+ * `job_name` and  `build_url` are optional, but all other parameters are required
 
 ## Example
 
