@@ -12,7 +12,8 @@ fastlane add_plugin github_job_status
 
 ## About github_job_status
 
-Post the status of your test jobs to your pull requests
+Post the status of your test jobs to your pull requests. This uses GihHub's [status API](https://developer.github.com/v3/repos/statuses/). Statuses posted to pull requests look this:
+![screen shot 2016-12-16 at 2 25 20 pm](https://cloud.githubusercontent.com/assets/8180094/21275606/98432cc4-c39b-11e6-984f-25228455efd7.png)
 
 It should be used in the following way:
 
