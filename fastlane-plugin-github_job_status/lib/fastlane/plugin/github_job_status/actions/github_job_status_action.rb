@@ -16,7 +16,7 @@ module Fastlane
 
         payload = {
           state: params[:state],
-          description: description_for_state(params[:state])
+          description: !params[:description] ? description_for_state(params[:state]) : params[:description]
         }
         context = params[:job_name]
         payload['context'] = context unless context.nil?
@@ -95,6 +95,12 @@ module Fastlane
             key: :job_name,
             env_name: 'GITHUB_JOB_STATUS_JOB_NAME',
             description: 'The string displayed next to the status indicator but before the description',
+            optional: true
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :description,
+            env_name: 'GITHUB_JOB_STATUS_DESCRIPTION',
+            description: 'The string displayed after job name',
             optional: true
           ),
           FastlaneCore::ConfigItem.new(

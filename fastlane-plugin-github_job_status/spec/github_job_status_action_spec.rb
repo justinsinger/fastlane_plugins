@@ -1,33 +1,61 @@
 require 'fastlane'
 
 describe Fastlane::Actions::GithubJobStatusAction do
+  before :all do
+    @url = "https://api.github.com/repos/justinsinger/fastlane_plugins/statuses/commit_sha"
+    @headers = {
+      'Authorization' => "token github_token",
+      'User-Agent' => 'fastlane',
+      'content_type' => :json,
+      'accept' => :json
+    }
+  end
+
   describe 'given all valid parameters' do
-    it 'posts a valid status' do
-      url = "https://api.github.com/repos/justinsinger/fastlane_plugins/statuses/commit_sha"
-      headers = {
-        'Authorization' => "token github_token",
-        'User-Agent' => 'fastlane',
-        'content_type' => :json,
-        'accept' => :json
-      }
-      payload = {
-        state: 'pending',
-        description: 'Job pending',
-        context: 'good_job',
-        target_url: 'skullcrushers.gov'
-      }
+    context 'with default description' do
+      it 'posts a valid status' do
+        payload = {
+          state: 'pending',
+          description: 'Job pending',
+          context: 'good_job',
+          target_url: 'skullcrushers.gov'
+        }
 
-      expect(Fastlane::Actions::GithubJobStatusAction).to receive(:post).with(url, payload.to_json, headers)
+        expect(Fastlane::Actions::GithubJobStatusAction).to receive(:post).with(@url, payload.to_json, @headers)
 
-      Fastlane::Actions::GithubJobStatusAction.run(
-        token: 'github_token',
-        owner: 'justinsinger',
-        repo: 'fastlane_plugins',
-        sha: 'commit_sha',
-        job_name: 'good_job',
-        build_url: 'skullcrushers.gov',
-        state: 'pending'
-      )
+        Fastlane::Actions::GithubJobStatusAction.run(
+          token: 'github_token',
+          owner: 'justinsinger',
+          repo: 'fastlane_plugins',
+          sha: 'commit_sha',
+          job_name: 'good_job',
+          build_url: 'skullcrushers.gov',
+          state: 'pending'
+        )
+      end
+    end
+    context 'with a given description' do
+      it 'posts a valid status' do
+        payload = {
+          state: 'success',
+          description: 'A very short description',
+          context: 'good_job',
+          target_url: 'skullcrushers.gov'
+        }
+
+        expect(Fastlane::Actions::GithubJobStatusAction).to receive(:post).with(@url, payload.to_json, @headers)
+
+        Fastlane::Actions::GithubJobStatusAction.run(
+          token: 'github_token',
+          owner: 'justinsinger',
+          repo: 'fastlane_plugins',
+          sha: 'commit_sha',
+          job_name: 'good_job',
+          description: 'A very short description',
+          build_url: 'skullcrushers.gov',
+          state: 'success'
+        )
+      end
     end
   end
 
