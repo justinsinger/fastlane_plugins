@@ -22,6 +22,8 @@ module Fastlane
         payload['context'] = context unless context.nil?
         target_url = params[:build_url]
         payload['target_url'] = target_url unless target_url.nil?
+        description = params[:description]
+        payload['description'] = description unless description.nil?
 
         begin
           post(url, payload.to_json, headers)
@@ -112,6 +114,12 @@ module Fastlane
                 UI.user_error! "Invalid state '#{value}' given. State must be pending, success, error, or failure."
               end
             end
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :description,
+            env_name: 'GITHUB_JOB_STATUS_DESCRIPTION',
+            description: 'The string displayed after job name',
+            optional: true
           )
         ]
       end
