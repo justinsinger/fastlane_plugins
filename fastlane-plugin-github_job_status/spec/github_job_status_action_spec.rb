@@ -25,6 +25,7 @@ describe Fastlane::Actions::GithubJobStatusAction do
         repo: 'fastlane_plugins',
         sha: 'commit_sha',
         job_name: 'good_job',
+        description: 'A short description',
         build_url: 'skullcrushers.gov',
         state: 'pending'
       )

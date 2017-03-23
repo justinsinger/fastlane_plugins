@@ -24,6 +24,7 @@ github_job_status(
   repo: 'fastlane_plugins',
   sha: 'commit_sha',
   job_name: 'good_job',
+  description: 'A short description',
   build_url: 'skullcrushers.gov',
   state: 'pending'
 )
@@ -31,7 +32,7 @@ github_job_status(
 
  * `state` must be pending, success, error, or failure
  * `token` can be obtained in GitHub for an owner (To do this, go to settings/Personal access tokens. Generate a new token and be sure to enable `repo:status`.)
- * `job_name` and  `build_url` are optional, but all other parameters are required
+ * `job_name`, `description` and `build_url` are optional, but all other parameters are required
 
 ## Example
 
