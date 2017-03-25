@@ -57,6 +57,30 @@ describe Fastlane::Actions::GithubJobStatusAction do
         )
       end
     end
+    context 'with a default sha (using last_git_commit)' do
+      it 'posts a valid status' do
+        sha = Fastlane::Actions::last_git_commit_dict[:commit_hash]
+        @url = "https://api.github.com/repos/justinsinger/fastlane_plugins/statuses/#{sha}"
+
+        payload = {
+          state: 'pending',
+          description: 'Job pending',
+          context: 'good_job',
+          target_url: 'skullcrushers.gov'
+        }
+
+        expect(Fastlane::Actions::GithubJobStatusAction).to receive(:post).with(@url, payload.to_json, @headers)
+
+        Fastlane::Actions::GithubJobStatusAction.run(
+          token: 'github_token',
+          owner: 'justinsinger',
+          repo: 'fastlane_plugins',
+          job_name: 'good_job',
+          build_url: 'skullcrushers.gov',
+          state: 'pending'
+        )
+      end
+    end
   end
 
   describe 'given valid required parameters' do
