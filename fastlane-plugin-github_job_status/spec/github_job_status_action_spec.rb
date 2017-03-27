@@ -59,7 +59,7 @@ describe Fastlane::Actions::GithubJobStatusAction do
     end
     context 'with a default sha (using last_git_commit)' do
       it 'posts a valid status' do
-        sha = Fastlane::Actions::last_git_commit_dict[:commit_hash]
+        sha = Fastlane::Actions.last_git_commit_dict[:commit_hash]
         @url = "https://api.github.com/repos/justinsinger/fastlane_plugins/statuses/#{sha}"
 
         payload = {

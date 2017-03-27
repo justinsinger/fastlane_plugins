@@ -5,8 +5,8 @@ module Fastlane
 
       def self.run(params)
         api = "https://api.github.com/repos"
-        #if sha not provided then use last_commit
-        sha = !params[:sha] ? Fastlane::Actions::last_git_commit_dict[:commit_hash] : params[:sha]
+        # if sha not provided then use last_commit
+        sha = !params[:sha] ? Fastlane::Actions.last_git_commit_dict[:commit_hash] : params[:sha]
         url = "#{api}/#{params[:owner]}/#{params[:repo]}/statuses/#{sha}"
 
         headers = {
