@@ -5,7 +5,9 @@ module Fastlane
 
       def self.run(params)
         api = "https://api.github.com/repos"
-        url = "#{api}/#{params[:owner]}/#{params[:repo]}/statuses/#{params[:sha]}"
+        # if sha not provided then use last_commit
+        sha = !params[:sha] ? Fastlane::Actions.last_git_commit_dict[:commit_hash] : params[:sha]
+        url = "#{api}/#{params[:owner]}/#{params[:repo]}/statuses/#{sha}"
 
         headers = {
           'Authorization' => "token #{params[:token]}",
@@ -16,7 +18,7 @@ module Fastlane
 
         payload = {
           state: params[:state],
-          description: description_for_state(params[:state])
+          description: !params[:description] ? description_for_state(params[:state]) : params[:description]
         }
         context = params[:job_name]
         payload['context'] = context unless context.nil?
@@ -89,12 +91,18 @@ module Fastlane
             key: :sha,
             env_name: 'GITHUB_JOB_STATUS_SHA',
             description: 'The github sha of the commit',
-            verify_block: proc { |value| UI.user_error! "SHA must be specified" if value.empty? }
+            optional: true
           ),
           FastlaneCore::ConfigItem.new(
             key: :job_name,
             env_name: 'GITHUB_JOB_STATUS_JOB_NAME',
             description: 'The string displayed next to the status indicator but before the description',
+            optional: true
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :description,
+            env_name: 'GITHUB_JOB_STATUS_DESCRIPTION',
+            description: 'The string displayed after job name',
             optional: true
           ),
           FastlaneCore::ConfigItem.new(

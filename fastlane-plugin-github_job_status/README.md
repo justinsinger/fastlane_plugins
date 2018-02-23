@@ -24,14 +24,16 @@ github_job_status(
   repo: 'fastlane_plugins',
   sha: 'commit_sha',
   job_name: 'good_job',
+  description: 'A short description',
   build_url: 'skullcrushers.gov',
   state: 'pending'
 )
 ```
 
+* `token` can be obtained in GitHub for an owner (To do this, go to settings/Personal access tokens. Generate a new token and be sure to enable `repo:status`.)
  * `state` must be pending, success, error, or failure
- * `token` can be obtained in GitHub for an owner (To do this, go to settings/Personal access tokens. Generate a new token and be sure to enable `repo:status`.)
- * `job_name` and  `build_url` are optional, but all other parameters are required
+ * `sha` is optional, and the default value is the last commit hash (thanks to [last_git_commit](https://docs.fastlane.tools/actions/#last_git_commit))
+ * `job_name`, `description` and `build_url` are optional
 
 ## Example
 
